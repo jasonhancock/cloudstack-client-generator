@@ -17,22 +17,24 @@ The table of content of the API reference lists all the methods. Each method has
   * the argument description
   * wether if the argument is required or not
   
-Here is an example of a method generated that has one argument required (`$id`) and one not (`$forced`):
+Here is an example of a method generated that has one argument required (`id`) and one not (`forced`):
 
     /**
-    * Stops a virtual machine.
-    *
-    * @param string $id The ID of the virtual machine
-    * @param string $forced Force stop the VM.  The caller knows the VM is stopped.
-    */
-    
-    public function stopVirtualMachine($id, $forced = "") {
-        $this->request("stopVirtualMachine", array(
-            'id' => $id,
-            'forced' => $forced,
-        ));
+     * Stops a virtual machine.
+     *
+     * @param array $args An associative array. The following are options for keys:
+     *     id - The ID of the virtual machine
+     *     forced - Force stop the VM.  The caller knows the VM is stopped.
+     */
+    public function stopVirtualMachine($args=array()) {
+
+        if (empty($args['id'])) {
+            throw new CloudStackClientException(sprintf(MISSING_ARGUMENT_MSG, 'id'), MISSING_ARGUMENT);
+        }
+
+        return $this->request('stopVirtualMachine', $args);
     }
-    
+
 Usage
 -----
 Just run the script, it will generate all the methods.
@@ -41,23 +43,28 @@ Just run the script, it will generate all the methods.
 
 Output:
 
-    abstract class BaseCloudStackClient {
-        abstract protected function request($method, $args);
+    <?php
+    require_once dirname(__FILE__) . "/BaseCloudStackClient.php";
+    require_once dirname(__FILE__) . "/CloudStackClientException.php";
+
+    class CloudStackClient extends BaseCloudStackClient {
     
         /**
-        * Stops a virtual machine.
-        *
-        * @param string $id The ID of the virtual machine
-        * @param string $forced Force stop the VM.  The caller knows the VM is stopped.
-        */
-        
-        public function stopVirtualMachine($id, $forced = "") {
-            $this->request("stopVirtualMachine", array(
-                'id' => $id,
-                'forced' => $forced,
-            ));
+         * Stops a virtual machine.
+         *
+         * @param array $args An associative array. The following are options for keys:
+         *     id - The ID of the virtual machine
+         *     forced - Force stop the VM.  The caller knows the VM is stopped.
+         */
+        public function stopVirtualMachine($args=array()) {
+
+            if (empty($args['id'])) {
+                throw new CloudStackClientException(sprintf(MISSING_ARGUMENT_MSG, 'id'), MISSING_ARGUMENT);
+            }
+
+            return $this->request('stopVirtualMachine', $args);
         }
-    
+
         ...
     }
 
@@ -69,7 +76,7 @@ The configuration is set in `config.yml` with the Yaml format:
     # URL of the API reference table of contents
     # check out if you have the latest version url here:
     # http://cloud.mindtouch.us/CloudStack_Documentation/API_Reference%3A_CloudStack
-    api_ref_toc_url: http://download.cloud.com/releases/2.2.0/api_2.2.4/TOC_User.html
+    api_ref_toc_url: http://download.cloud.com/releases/2.2.0/api_2.2.12/TOC_Global_Admin.html
 
     # Language for generated code (supported: php, python)
     language: php
@@ -88,7 +95,7 @@ The configuration is set in `config.yml` with the Yaml format:
         
 Camel Case
 ----------
-You can either choose to have generated code with the same variable names than in the documentation, `securitygroupnames` for instance, or to have them in camel case, like `securityGroupNames` by setting `use_camel_case` to `true` in the configuration file.
+You can either choose to have generated code with the same variable names than in the documentation, `securitygroupnames` for instance, or to have them in camel case, like `securityGroupNames` by setting `use_camel_case` to `true` in the configuration file. This has been deprecated for the php client and setting it to true will have no effect.
 
 Debuging
 --------
@@ -109,12 +116,13 @@ This command is great to debug a change in the URL pattern of the online documen
 Example:
 
     $ php generator.php links
-    user/deployVirtualMachine.html
-    user/destroyVirtualMachine.html
-    user/rebootVirtualMachine.html
-    user/startVirtualMachine.html
-    user/stopVirtualMachine.html
-    user/resetPasswordForVirtualMachine.html
+    global_admin/deployVirtualMachine.html - deployVirtualMachine (A)
+    global_admin/destroyVirtualMachine.html - destroyVirtualMachine (A)
+    global_admin/rebootVirtualMachine.html - rebootVirtualMachine (A)
+    global_admin/startVirtualMachine.html - startVirtualMachine (A)
+    global_admin/stopVirtualMachine.html - stopVirtualMachine (A)
+    global_admin/resetPasswordForVirtualMachine.html - resetPasswordForVirtualMachine (A)
+    global_admin/changeServiceForVirtualMachine.html - changeServiceForVirtualMachine (A)
     ...
 
 
