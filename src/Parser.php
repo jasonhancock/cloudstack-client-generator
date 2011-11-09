@@ -16,7 +16,8 @@ class Parser
             // Links black list
             // Exclude page that are not method documentation
             // You may need to edit the rules if the documentation has changed
-            if (substr($url, 0, 5) != "user/" || substr($url, 0, 8) == "user/2.2") {
+            // if (substr($url, 0, 5) != "user/" || substr($url, 0, 8) == "user/2.2") {
+            if (substr($url, 0, 13) != "global_admin/" || substr($url, 0, 16) == "global_admin/2.2") {
                 continue;
             }
 
