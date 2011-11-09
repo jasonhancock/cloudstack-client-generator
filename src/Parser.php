@@ -44,7 +44,7 @@ class Parser
         $data = array(
             'name' => trim($title->plaintext),
             // The description of the method is in the next block
-            'description' => trim($title->next_sibling()->plaintext),
+            'description' => html_entity_decode(trim($title->next_sibling()->plaintext), ENT_QUOTES),
         );
 
         // The arguments of the method are all in the first table
@@ -58,7 +58,7 @@ class Parser
                 $data['params'][] = array(
                     "name" => $name,
                     "nameCamelCase" => $useCamelCase ? self::getCamelCase($name, $camelCaseValues) : "",
-                    "description" => trim($tr->find('td', 1)->plaintext),
+                    "description" => html_entity_decode(trim($tr->find('td', 1)->plaintext), ENT_QUOTES),
                     "required" => trim($tr->find('td', 2)->plaintext),
                 );
             }
