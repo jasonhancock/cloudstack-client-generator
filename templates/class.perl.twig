@@ -1,0 +1,35 @@
+{# 
+    This file is part of the CloudStack Client Generator.
+    
+    (c) Quentin Pleplé <quentin.pleple@gmail.com>
+    
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+#}
+
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use CloudStack::BaseClient;
+
+package CloudStack::Client;
+
+our @ISA = qw(CloudStack::BaseClient);
+
+sub new {
+    my ($class) = shift;
+    my ($args) = @_;
+
+    my $self = CloudStack::BaseClient->new($args);
+
+    bless $self, $class;
+
+    return $self;
+}
+    
+{% for method in methods %}
+{% include "method.perl.twig" with {'method' : method, 'config' : config} %}
+
+{% endfor %}
+1;

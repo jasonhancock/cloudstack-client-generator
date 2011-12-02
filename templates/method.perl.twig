@@ -1,0 +1,28 @@
+{# 
+    This file is part of the CloudStack Client Generator.
+    
+    (c) Jason Hancock <jsnbyh@gmail.com>
+    
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+#}
+{% autoescape false %}
+# {% filter wordwrap(80, "\n# ", false) %}{{ method.description|raw }}
+{% endfilter %}
+#
+# @param array $args An associative array. The following are options for keys:
+{% for param in method.params %}
+# {% filter wordwrap(80, "\n#        ", false) %}    {{ param.name }} - {{ param.description|raw }}
+{% endfilter %}
+{% endfor %}
+#
+sub {{ method.name }} {
+    my ($self, $args) = @_;
+
+{% for param in method.params %}{% if param.required == "true" %}
+    die("Missing required argument '{{ param.name }}'") if(!defined($args->{'{{ param.name }}'}));
+{% endif %}{% endfor %}
+
+    return $self->request('{{ method.name }}', $args);
+}
+{% endautoescape %}
