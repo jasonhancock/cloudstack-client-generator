@@ -1,7 +1,7 @@
 CloudStack Client Generator
 ===========================
 
-Command line tool that fetches and parses the online reference for CloudStack API and generates the client class in PHP or Python with in-code documentation. You can generate a client in any other language (Java, C++, ObjectiveC, etc.) by adding class templates to the ``templates/`` directory.
+Command line tool that fetches and parses the online reference for CloudStack API and generates the client class in PHP, Python or Perl with in-code documentation. You can generate a client in any other language (Java, C++, ObjectiveC, etc.) by adding class templates to the ``templates/`` directory.
 
 See https://github.com/qpleple/cloudstack-php-client for last PHP client generated.
 
@@ -78,7 +78,7 @@ The configuration is set in `config.yml` with the Yaml format:
     # http://cloud.mindtouch.us/CloudStack_Documentation/API_Reference%3A_CloudStack
     api_ref_toc_url: http://download.cloud.com/releases/2.2.0/api_2.2.12/TOC_Global_Admin.html
 
-    # Language for generated code (supported: php, python)
+    # Language for generated code (supported: php, python, perl)
     language: php
 
     # Generated class name
