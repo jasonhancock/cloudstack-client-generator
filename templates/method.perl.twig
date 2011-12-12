@@ -18,7 +18,6 @@
 #
 sub {{ method.name }} {
     my ($self, $args) = @_;
-
 {% for param in method.params %}{% if param.required == "true" %}
     die("Missing required argument '{{ param.name }}'") if(!defined($args->{'{{ param.name }}'}));
 {% endif %}{% endfor %}
