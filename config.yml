@@ -4,7 +4,7 @@
 api_ref_toc_url: http://download.cloud.com/releases/2.2.0/api_2.2.12/TOC_Global_Admin.html 
 
 # Language for generated code (supported: php, perl, python)
-language: perl
+language: python 
 
 # Generated class name
 class_name: CloudStackClient

@@ -6,18 +6,23 @@
     For the full copyright and license information, please view the LICENSE
     file that was distributed with this source code.
 #}
+    def {{ method.name }}(self, args={}):
+        '''
 {% autoescape false %}
-{% set camelCase = config.use_camel_case %}
-    def {{ method.name }}(self, {% for param in method.params %}{% if camelCase %}{{ param.nameCamelCase }}{% else %}{{ param.name }}{% endif %}{% if param.required != "true" %} = ""{% endif %}{% if not loop.last %}, {% endif %}
-{% endfor %}):
-        '''
-        {{ method.description | raw }}
-        '''
+        {% filter wordwrap(80, "\n        ", false) %}{{ method.description|raw }}
+{% endfilter %}
 
-        return self.request("{{ method.name }}", {
+        args - A dictionary. The following are options for keys:
 {% for param in method.params %}
-            '{{ param.name }}' : {% if camelCase %}{{ param.nameCamelCase }}{% else %}{{ param.name }}{% endif %},
+        {% filter wordwrap(80, "\n               ", false) %}    {{ param.name }} - {{ param.description|raw }}
+{% endfilter %}
 {% endfor %}
-        })
+        '''
+{% for param in method.params %}{% if param.required == "true" %}
+        if not '{{ param.name }}' in args:
+            raise RuntimeError("Missing required argument '{{ param.name }}'")
+{% endif %}{% endfor %}
+
+        return self.request('{{ method.name }}', args)
 {% endautoescape %}
-    
+ 
