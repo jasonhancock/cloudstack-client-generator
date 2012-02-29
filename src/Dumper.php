@@ -60,38 +60,10 @@ class Dumper
         ));
     }
     
-    public function checkCamelCase()
-    {
-        // Disable camel case auto lookup
-        $this->config['use_camel_case'] = false;
-
-        $links = Parser::getAllLinks($this->fetchTOC());
-        $missingNames = array();
-
-        // walk through all links
-        foreach ($links as $link) {
-            echo "Fetching " . $link['url'] . " ...\n";
-            $methodData = $this->fetchMethodData($link['url']);
-            
-            foreach ($methodData['params'] as $param) {
-                if (!array_key_exists($param['name'], $this->config['camel_case'])) {
-                    $missingNames[] = $param['name'];
-                }
-            }
-        }
-
-        if (empty($missingNames)) {
-            echo "No missing camel case values :)\n";
-        } else {
-            echo "Add the following values to the config file under \"camel_case\"\n :";
-            print_r($missingNames);
-        }
-    }
-    
     private function fetchMethodData($path) {
         $url = $this->getRootUrl() . $path;
         $html = $this->lib->fetchHtml($url);
-        return Parser::getMethodData($html, $this->config['use_camel_case'], $this->config['camel_case']);
+        return Parser::getMethodData($html);
     }
     
     private function fetchTOC() {

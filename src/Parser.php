@@ -17,7 +17,8 @@ class Parser
             // Exclude page that are not method documentation
             // You may need to edit the rules if the documentation has changed
             // if (substr($url, 0, 5) != "user/" || substr($url, 0, 8) == "user/2.2") {
-            if (substr($url, 0, 13) != "global_admin/" || substr($url, 0, 16) == "global_admin/2.2") {
+            //if (substr($url, 0, 13) != "global_admin/" || substr($url, 0, 16) == "global_admin/2.2") {
+            if (substr($url, 0, 11) != "root_admin/") {
                 continue;
             }
 
@@ -34,7 +35,7 @@ class Parser
      * Fetch the data of the reference page of one method
      * and returns it in an array
      */
-    public static function getMethodData($html, $useCamelCase = false, $camelCaseValues = array())
+    public static function getMethodData($html)
     {
         // The name of the method is in the first and only one h1
         $title = $html->find('h1', 0);
@@ -57,7 +58,6 @@ class Parser
             if ($name != "Parameter Name") {
                 $data['params'][] = array(
                     "name" => $name,
-                    "nameCamelCase" => $useCamelCase ? self::getCamelCase($name, $camelCaseValues) : "",
                     "description" => html_entity_decode(trim($tr->find('td', 1)->plaintext), ENT_QUOTES),
                     "required" => trim($tr->find('td', 2)->plaintext),
                 );
@@ -69,23 +69,11 @@ class Parser
         if (substr($data['name'], 0, 4) == "list") {
             $data['params'][] = array(
                 "name" => "page",
-                "nameCamelCase" => "page",
                 "description" => "Pagination",
                 "required" => "false",
             );
         }
 
         return $data;
-    }
-
-
-    private static function getCamelCase($name, $camelCaseValues)
-    {
-        // The API may change and you may have to add yourself some values in the config file
-        if (!array_key_exists($name, $camelCaseValues)) {
-            die("No camel case value for \"$name\".\nPlease add it in the configuration file and run the command again.");
-        }
-
-        return $camelCaseValues[$name];
     }
 }

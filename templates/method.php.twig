@@ -20,9 +20,8 @@
     public function {{ method.name }}($args=array()) {
 
 {% for param in method.params %}{% if param.required == "true" %}
-        if (empty($args['{{ param.name }}'])) {
+        if (empty($args['{{ param.name }}']))
             throw new CloudStackClientException(sprintf(MISSING_ARGUMENT_MSG, '{{ param.name }}'), MISSING_ARGUMENT);
-        }
 
 {% endif %}{% endfor %}
         return $this->request('{{ method.name }}', $args);

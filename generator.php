@@ -33,8 +33,6 @@ if ($argc > 1 && $argv[1] == "links") {
 } elseif ($argc > 2 && $argv[1] == "method" ) {
     $methodName = $argv[2];
     $dumper->dumpMethod($methodName);
-} elseif ($argc > 1 && $argv[1] == "check-camel-case" ) {
-    $dumper->checkCamelCase();
 } elseif ($argc > 1 && $argv[1] == "class" ) {
     $dumper->dumpClass();
 } else {

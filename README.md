@@ -76,29 +76,15 @@ Configuration
 The configuration is set in `config.yml` with the Yaml format:
 
     # URL of the API reference table of contents
-    # check out if you have the latest version url here:
     # http://cloud.mindtouch.us/CloudStack_Documentation/API_Reference%3A_CloudStack
-    api_ref_toc_url: http://download.cloud.com/releases/2.2.0/api_2.2.12/TOC_Global_Admin.html
+    api_ref_toc_url: http://download.cloud.com/releases/3.0.0/api_3.0.0/TOC_Root_Admin.html 
 
     # Language for generated code (supported: php, python, perl)
     language: php
 
     # Generated class name
     class_name: CloudStackClient
-
-    # Use camel case variable or not
-    use_camel_case: true
-
-    # Camel case values
-    camel_case:
-        account: account
-        accounts: accounts
-        # ...
         
-Camel Case
-----------
-You can either choose to have generated code with the same variable names than in the documentation, `securitygroupnames` for instance, or to have them in camel case, like `securityGroupNames` by setting `use_camel_case` to `true` in the configuration file. This has been deprecated for the php client and setting it to true will have no effect.
-
 Debuging
 --------
 
