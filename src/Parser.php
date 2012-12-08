@@ -46,6 +46,7 @@ class Parser
             'name' => trim($title->plaintext),
             // The description of the method is in the next block
             'description' => html_entity_decode(trim($title->next_sibling()->plaintext), ENT_QUOTES),
+            'params' => array()
         );
 
         // The arguments of the method are all in the first table

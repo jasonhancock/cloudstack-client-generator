@@ -1,0 +1,6 @@
+<?php
+return array(
+{% for method in methods|sort %}
+{% include "method.phparray.twig" with {'method' : method, 'config' : config} %}
+{% endfor %}
+);

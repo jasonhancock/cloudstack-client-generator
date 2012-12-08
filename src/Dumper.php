@@ -16,6 +16,8 @@ class Dumper
             $this->extension = "py";
         } elseif ($config['language'] == "perl") {
             $this->extension = "perl";
+        } elseif ($config['language'] == "phparray") {
+            $this->extension = "phparray";
         } else {
             throw new Exception("Language " . $config['language'] . " not supported.");
         }

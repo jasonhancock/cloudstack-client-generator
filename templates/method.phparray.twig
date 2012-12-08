@@ -1,0 +1,5 @@
+    '{{ method.name }}' => array(
+{% for param in method.params %}
+        '{{ param.name }}' => {{  param.required == "true" ? 'true' : 'false' }},
+{% endfor %}
+    ),
