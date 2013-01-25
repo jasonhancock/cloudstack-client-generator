@@ -7,4 +7,4 @@ api_ref_toc_url: http://download.cloud.com/releases/3.0.0/api_3.0.0/TOC_Root_Adm
 language: phparray
 
 # Generated class name
-class_name: CloudStackClient
+class_name: CloudstackRubyClient::Client
