@@ -18,6 +18,8 @@ class Dumper
             $this->extension = "perl";
         } elseif ($config['language'] == "phparray") {
             $this->extension = "phparray";
+        } elseif ($config['language'] == "ruby") {
+            $this->extension = "rb";
         } else {
             throw new Exception("Language " . $config['language'] . " not supported.");
         }
@@ -25,13 +27,13 @@ class Dumper
     
     public function dumpMethodData($method)
     {
-        $methodData = $this->fetchMethodData("user/${method}.html");
+        $methodData = $this->fetchMethodData("root_admin/${method}.html");
         print_r($methodData);
     }
     
     public function dumpMethod($method)
     {
-        $methodData = $this->fetchMethodData("user/${method}.html");
+        $methodData = $this->fetchMethodData("root_admin/${method}.html");
         $this->lib->render("method." . $this->extension . ".twig", array(
             "method" => $methodData,
             "config" => $this->config,
