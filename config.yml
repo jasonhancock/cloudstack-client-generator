@@ -1,10 +1,10 @@
 # URL of the API reference table of contents
 # check out if you have the latest version url here:
 # http://cloud.mindtouch.us/CloudStack_Documentation/API_Reference%3A_CloudStack
-api_ref_toc_url: http://download.cloud.com/releases/3.0.0/api_3.0.0/TOC_Root_Admin.html 
+api_ref_toc_url: http://incubator.apache.org/cloudstack/docs/api/apidocs-4.0.0/TOC_Root_Admin.html
 
 # Language for generated code (supported: php, perl, python)
-language: phparray
+language: ruby
 
 # Generated class name
 class_name: CloudStackClient
