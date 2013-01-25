@@ -7,21 +7,21 @@
     file that was distributed with this source code.
 #}
     def {{ method.name }}(args={})
-        '''
 {% autoescape false %}
-        {% filter wordwrap(80, "\n        ", false) %}{{ method.description|raw }}
+        # {% filter wordwrap(80, "\n        # ", false) %}{{ method.description|raw }}
 {% endfilter %}
-
-        args - A dictionary. The following are options for keys:
+        # 
+        # args - A dictionary. The following are options for keys:
 {% for param in method.params %}
-        {% filter wordwrap(80, "\n               ", false) %}    {{ param.name }} - {{ param.description|raw }}
+        # {% filter wordwrap(80, "\n        #       ", false) %}    {{ param.name }} - {{ param.description|raw }}
 {% endfilter %}
 {% endfor %}
-        '''
+
         args.merge!('command' => '{{method.name}}')
 {% for param in method.params %}{% if param.required == "true" %}
-        if not '{{ param.name }}' in args:
-            raise RuntimeError("Missing required argument '{{ param.name }}'")
+        if not args.haskey?('{{ param.name }}')
+            raise ArgumentError, "Missing required argument '{{ param.name }}'"
+        end
 {% endif %}{% endfor %}
 
         return request(args)

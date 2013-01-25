@@ -7,4 +7,4 @@ api_ref_toc_url: http://incubator.apache.org/cloudstack/docs/api/apidocs-4.0.0/T
 language: ruby
 
 # Generated class name
-class_name: CloudStackClient
+class_name: CloudstackRubyClient::Client
