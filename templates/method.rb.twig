@@ -19,7 +19,7 @@
 
         args.merge!('command' => '{{method.name}}')
 {% for param in method.params %}{% if param.required == "true" %}
-        if not args.haskey?('{{ param.name }}')
+        if not args.has_key?('{{ param.name }}')
             raise ArgumentError, "Missing required argument '{{ param.name }}'"
         end
 {% endif %}{% endfor %}
